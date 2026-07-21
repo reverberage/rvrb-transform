@@ -45,6 +45,9 @@ select = ["E", "F", "I", "N", "W", "UP"]
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+# pydantic BaseModel resolves as Any with ignore_missing_imports, blocking subclass checks.
+# typer/mcp decorators are untyped — both are known ecosystem limitations.
+disable_error_code = ["misc", "untyped-decorator"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
