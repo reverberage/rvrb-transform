@@ -54,9 +54,7 @@ def transform_command(
     """
     if not text:
         if sys.stdin.isatty():
-            _print_error(
-                "No text provided. Either pass text as an argument or pipe text to stdin."
-            )
+            _print_error("No text provided. Either pass text as an argument or pipe text to stdin.")
             raise typer.Exit(code=1)
         text = sys.stdin.read().strip()
 

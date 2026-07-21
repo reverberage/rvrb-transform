@@ -66,10 +66,7 @@ mcp: Any = _build_server()
 def main() -> None:
     """Entry point for ``rvrb-transform-mcp``."""
     if mcp is None:
-        msg = (
-            "MCP support requires the 'mcp' extra. "
-            "Install with: pip install rvrb-transform[mcp]"
-        )
+        msg = "MCP support requires the 'mcp' extra. Install with: pip install rvrb-transform[mcp]"
         raise ImportError(msg)
 
     mcp.run(transport="stdio")

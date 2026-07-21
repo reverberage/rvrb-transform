@@ -116,9 +116,7 @@ def get_provider(
     try:
         from n3rverberage.providers import get_provider as n3rv_get_provider
 
-        result: ModelProvider = n3rv_get_provider(
-            name=f"{resolved_provider}:{resolved_model}"
-        )
+        result: ModelProvider = n3rv_get_provider(name=f"{resolved_provider}:{resolved_model}")
         return result
     except ImportError:
         pass
@@ -136,8 +134,7 @@ def _build_fallback_provider(provider_type: str, model: str) -> _GenericProvider
     provider_type = provider_type.strip().lower()
     if provider_type not in _PROVIDER_FALLBACKS:
         raise ValueError(
-            f"Unknown provider type: '{provider_type}'. "
-            f"Supported: {', '.join(_PROVIDER_FALLBACKS)}"
+            f"Unknown provider type: '{provider_type}'. Supported: {', '.join(_PROVIDER_FALLBACKS)}"
         )
 
     default_model, default_url, api_key_var = _PROVIDER_FALLBACKS[provider_type]

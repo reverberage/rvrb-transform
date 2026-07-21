@@ -31,9 +31,7 @@ class TestTransform:
     def test_single_public_method(self) -> None:
         engine = TransformEngine(provider=MockProvider())
         public_methods = [
-            m
-            for m in dir(engine)
-            if not m.startswith("_") and callable(getattr(engine, m))
+            m for m in dir(engine) if not m.startswith("_") and callable(getattr(engine, m))
         ]
         assert "transform" in public_methods
         assert "provider" not in public_methods

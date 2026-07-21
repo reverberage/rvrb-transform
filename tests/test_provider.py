@@ -8,11 +8,15 @@ from rvrb_transform.provider import DEFAULT_BASE_URL, DEFAULT_MODEL, get_provide
 
 
 class TestGetProvider:
-    """get_provider() resolution chain."""
+    """get_provider() resolution chain.
+
+    Uses provider="local" to avoid requiring API keys in CI.
+    Local provider (Ollama/vLLM) needs no key.
+    """
 
     def test_get_provider_no_args(self) -> None:
-        """get_provider() with no args returns a ModelProvider."""
-        provider = get_provider()
+        """get_provider(provider="local") returns a ModelProvider."""
+        provider = get_provider(provider="local")
         assert hasattr(provider, "model")
         assert hasattr(provider, "base_url")
         assert hasattr(provider, "complete")
@@ -20,13 +24,13 @@ class TestGetProvider:
         assert hasattr(provider, "complete_with_tools")
 
     def test_get_provider_with_model(self) -> None:
-        """get_provider(model="gpt-4") returns a provider with assigned model."""
-        provider = get_provider(model="gpt-4")
-        assert provider.model == "gpt-4"
+        """get_provider(provider="local", model="llama3") returns provider with model."""
+        provider = get_provider(provider="local", model="llama3")
+        assert provider.model == "llama3"
 
     def test_get_provider_protocol_match(self) -> None:
         """Returned provider satisfies ModelProvider protocol structural check."""
-        provider = get_provider(model="gpt-4")
+        provider = get_provider(provider="local", model="llama3")
         assert callable(getattr(provider, "complete", None))
         assert callable(getattr(provider, "complete_structured", None))
         assert callable(getattr(provider, "complete_with_tools", None))
